@@ -31,11 +31,19 @@ son repetitivos y para que no se repita la misma respuesta, cada usuario que ing
 
 ##  Diagrama de Casos de uso 
 [![Diagrama-sin-t-tulo.jpg](https://i.postimg.cc/sfkRmhZB/Diagrama-sin-t-tulo.jpg)](https://postimg.cc/K4DVv4fF)
+
 ## Diagrama de Base de datos
 [![Diagrama-de-base-de-datos.jpg](https://i.postimg.cc/MGT4q6Q2/Diagrama-de-base-de-datos.jpg)](https://postimg.cc/w1CFkd20)
+
 ## (Posible) Interfaz de la pagina web
 [![Sin-t-tulo.jpg](https://i.postimg.cc/RF0bgDWb/Sin-t-tulo.jpg)](https://postimg.cc/cKVmHTMQ)
 [![Sin-t-tulo2.jpg](https://i.postimg.cc/0NjBf4MX/Sin-t-tulo2.jpg)](https://postimg.cc/mcxjZ8S7)
 [![Sin-t-tulo3.jpg](https://i.postimg.cc/rF9ZLT5Y/Sin-t-tulo3.jpg)](https://postimg.cc/QHHJpR4p)
 [![Sin-t-tulo4.jpg](https://i.postimg.cc/ZR3jszTH/Sin-t-tulo4.jpg)](https://postimg.cc/zbzn3MHH)
 [![Sin-t-tulo5.jpg](https://i.postimg.cc/7hk9pthk/Sin-t-tulo5.jpg)](https://postimg.cc/hz2VmrVy)
+
+## Tabla de tiempos y tareas a realizar
+![image](https://github.com/JhenryMM/Getinfo/assets/65234337/73873ff0-f91b-4735-b2af-e51b8d7db44c)
+
+## Diagrama de gantt
+![image](https://github.com/JhenryMM/Getinfo/assets/65234337/4bf2f213-0a9b-4b8e-8505-500195875c98)
