@@ -42,8 +42,8 @@ son repetitivos y para que no se repita la misma respuesta, cada usuario que ing
 [![Sin-t-tulo4.jpg](https://i.postimg.cc/ZR3jszTH/Sin-t-tulo4.jpg)](https://postimg.cc/zbzn3MHH)
 [![Sin-t-tulo5.jpg](https://i.postimg.cc/7hk9pthk/Sin-t-tulo5.jpg)](https://postimg.cc/hz2VmrVy)
 
-## Tabla de tiempos y tareas a realizar
-![image](https://github.com/JhenryMM/Getinfo/assets/65234337/73873ff0-f91b-4735-b2af-e51b8d7db44c)
+## Tabla de tiempos y tareas a realizar		
+![image](https://github.com/JhenryMM/Getinfo/assets/65234337/a0eb62d2-413d-4790-9e62-9399f2e2cbe6)
 
 ## Diagrama de gantt
 ![image](https://github.com/JhenryMM/Getinfo/assets/65234337/4bf2f213-0a9b-4b8e-8505-500195875c98)
