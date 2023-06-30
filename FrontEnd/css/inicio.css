@@ -68,18 +68,16 @@ li a.active, li a:hover{
 }
 
 .formulario{
-    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-left: 300px;
 }
 
 .form{
     background-color: #fff;
     padding: 50px 50px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
-    margin-top: 50px;
+    margin-top: 30px;
     border-radius:25px;
 }
 
@@ -136,6 +134,13 @@ textarea {
 	width: 90%;
 	margin: 40px auto;
 }
+
+.preguntas-frecuentes h2{
+    text-align: center;
+    color: #2f4ccd;
+    font-size: 25px;
+}
+
 .pregunta {
 	font-weight: 700;
 	font-size: 20px;
@@ -143,6 +148,23 @@ textarea {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+}
+
+.respuesta {
+	color: #808080;
+	line-height: 30px;
+	max-height: 0;
+	opacity: 0;
+	transition: .3s ease all;
+}
+
+.contenedor-pregunta.activa .respuesta {
+	opacity: 1;
+	margin-top: 20px;
+}
+
+.contenedor-pregunta.activa img {
+	transform: rotate(45deg);
 }
 @media (max-width:952px){
     .enlance{
