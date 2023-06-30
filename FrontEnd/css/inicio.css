@@ -67,6 +67,12 @@ li a.active, li a:hover{
     display: none;
 }
 
+main {
+    max-width: 1000px;
+	width: 90%;
+	margin: 40px auto;
+}
+
 .formulario{
     display: flex;
     align-items: center;
@@ -130,12 +136,10 @@ textarea {
 }
 
 .preguntas-frecuentes{
-    max-width: 1000px;
-	width: 90%;
-	margin: 40px auto;
+	margin: 40px;
 }
 
-.preguntas-frecuentes h2{
+.preguntas h2{
     text-align: center;
     color: #2f4ccd;
     font-size: 25px;
