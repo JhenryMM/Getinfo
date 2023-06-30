@@ -1,4 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+:root {
+	--primario: #e23939;
+	--gris-claro: #B8B8B8;
+	--sombra: 0 0 13px 0 rgba(185,185,185, .25);
+}
 
 *{
     padding: 0;
@@ -67,14 +72,14 @@ li a.active, li a:hover{
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-left: 300px;
 }
 
 .form{
     background-color: #fff;
     padding: 50px 50px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
-    margin:auto;
-    margin-top: 70px;
+    margin-top: 50px;
     border-radius:25px;
 }
 
@@ -84,6 +89,10 @@ li a.active, li a:hover{
     font-size: 25px;
 }
 
+.input-group{
+    display: flex;
+    flex-direction: column;
+}
 .form-txt {
     text-align: center;
 }
@@ -93,8 +102,48 @@ textarea {
     border-radius: 10px;
 }
 
+.form .btn{
+    font-size: 20px;
+    border-radius: 5px;
+}
 
+.contenedor-preguntas {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+}
 
+.contenedor-pregunta{
+    background: #fff;
+    padding: 40px;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: .3s ease all;
+    cursor: pointer;
+}
+
+.contenedor-pregunta:hover{
+    box-shadow: var(--sombra);
+}
+
+.contenedor-pregunta.activa{
+    border: 2px solid var(--primario);
+}
+
+.preguntas-frecuentes{
+    max-width: 1000px;
+	width: 90%;
+	margin: 40px auto;
+}
+.pregunta {
+	font-weight: 700;
+	font-size: 20px;
+	line-height: 20px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
 @media (max-width:952px){
     .enlance{
         padding-left: 20px;

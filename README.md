@@ -1,6 +1,6 @@
 # Nombre del Proyecto:  Get Info
 **Integrantes:** Machaca Jhenry, Leandro Mazzareli y Pablo Olmedo  
-**Lenguajes de programación que se usaran:** JavaScript y Python  
+**Lenguajes de programación y frameworks que se usaran:** html, flask,Google fonts, JavaScript y Python  
 **DB:** MySQL  
 **Descripción del proyecto:**  
 El proyecto consiste en hacer una herramienta de gestión de tickets, que pueda recibir los problemas 
