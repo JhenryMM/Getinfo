@@ -65,6 +65,7 @@ def login():
     else:
         return render_template('auth/login.html')
 
+
 @app.route('/vcpregunta')
 def vcpregunta():
     return render_template('auth/vcpregunta.html')
