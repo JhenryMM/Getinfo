@@ -45,4 +45,20 @@ class ModelUser():
             db.connection.commit()
         except Exception as ex:
             raise Exception(ex)
+    
+    @classmethod
+    def get_by_id(cls, db, id):
+        try:
+            cursor = db.connection.cursor()
+            sql = """SELECT id, username, fullname FROM usuario WHERE id= {} """.format(id)
+            cursor.execute(sql)
+            row = cursor.fetchone()
+            if row != None:
+                return User(row[0], row[1], None, row[2])
+            else : 
+                return None
+            cursor.close()
             
+        except Exception as ex:
+            raise Exception(ex)
+    

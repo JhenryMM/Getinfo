@@ -23,7 +23,7 @@
             <li><a href="#" class="active">Ver perfil</a></li>
             <li><a href="vcpregunta.html">Preguntas</a></li>
             <li><a href="vcrespuestas.html">Respuestas</a></li>
-            <li><a href="#">Cerrar sesion</a></li>
+            <li><a href="{{ url_for ('logout') }}" >Cerrar sesion</a></li>
         </ul>
     </nav>
     {%block body%}
