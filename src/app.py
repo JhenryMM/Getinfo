@@ -3,6 +3,8 @@ from config import config
 from flask_mysqldb import MySQL
 from flask_wtf.csrf import CSRFProtect
 from flask_login import LoginManager, login_user, login_required, logout_user
+from router.pregunta import pregunta
+
 
 #Carpetamodels:
 from models.ModelUser import ModelUser
@@ -65,7 +67,7 @@ def login():
         if logged_user != None:
             if logged_user:
                 login_user(logged_user)
-                return redirect(url_for('vcpregunta'))
+                return redirect(url_for('pregunta.vcpregunta'))
             else:
                 flash("contraseña incorrecta...")
             return render_template ('auth/login.html')
@@ -82,12 +84,6 @@ def logout():
     logout_user()
     return redirect(url_for('login'))
 
-
-@app.route('/vcpregunta')
-@login_required
-def vcpregunta():
-    return render_template('auth/vcpregunta.html')
-
 def status_401(error):
     return redirect(url_for('login'))
 
@@ -96,8 +92,9 @@ def status_404(error):
 
 if __name__=='__main__':
     app.config.from_object(config['development'])
+    csrf.init_app(app)
     app.register_error_handler(401,status_401)
     app.register_error_handler(404,status_404)
+    app.register_blueprint(pregunta, url_prefix='/pregunta')
     app.run()
 
-    
