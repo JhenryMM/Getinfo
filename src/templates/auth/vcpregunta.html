@@ -3,13 +3,15 @@
 {% block body %}
 <main>
     <section >
-        <form class="form">
+        <form class="form", method="POST">
+            
            <h2>Get Info</h2>
                <div class="form-txt">
                    <a>Ingrese su pregunta o problema</a>
                </div>
+               <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                <div class="input-group">
-               <textarea class="box"id="mensaje" cols="90" rows="10" placeholder="Empeza a contarnos..."></textarea>
+               <textarea name=problema class="box"id="mensaje" cols="90" rows="10" placeholder="Empeza a contarnos..."></textarea>
                <input type="submit" value="enviar" class="btn">
            </div>
               
