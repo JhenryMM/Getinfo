@@ -3,6 +3,7 @@
 {% block body %}
 <h3>Crear cuenta</h3>
 <form method="POST" action="/signup">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
     <div class="input-box">
         <input type="text" name="username" placeholder="nombre de usuario" maxlength="255" required class="input-control">
     </div>

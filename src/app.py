@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, current_app
 from config import config
 from flask_mysqldb import MySQL
 from flask_wtf.csrf import CSRFProtect
@@ -18,6 +18,8 @@ csrf=CSRFProtect()
 db=MySQL(app)
 login_manager_app = LoginManager(app)
 
+with app.app_context():
+    current_app.db = db
 
 @login_manager_app.user_loader
 def load_user(id):
@@ -63,17 +65,20 @@ def signup_create():
 def login():
     if request.method == 'POST':
         user = User(0, request.form['username'], request.form['password'])
-        logged_user = ModelUser.login(db, user)
-        if logged_user != None:
+        username = request.form['username']
+        logged_user = ModelUser.login_user(db, user)
+
+        if ModelUser.es_soporte(username, db):
+            logged_user = ModelUser.login_soporte(db, user)
+            if logged_user:
+                login_user(logged_user)
+                return redirect(url_for('pregunta.vspregunta'))
+        else:
+            logged_user = ModelUser.login_user(db, user)
             if logged_user:
                 login_user(logged_user)
                 return redirect(url_for('pregunta.vcpregunta'))
-            else:
-                flash("contraseña incorrecta...")
-            return render_template ('auth/login.html')
-        else:
-            flash("Usuario no existente...")
-            return render_template ('auth/login.html')
+
 
         return render_template('auth/login.html')
     else:
@@ -95,6 +100,6 @@ if __name__=='__main__':
     csrf.init_app(app)
     app.register_error_handler(401,status_401)
     app.register_error_handler(404,status_404)
-    app.register_blueprint(pregunta, url_prefix='/pregunta')
+    app.register_blueprint(pregunta)
     app.run()
 
