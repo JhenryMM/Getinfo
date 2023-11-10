@@ -29,16 +29,14 @@ def vcpregunta():
 def vspregunta():
     db = current_app.db 
     user_id = current_user.id
+    preguntas = []  # Lista para almacenar las preguntas
 
-    if request.method == 'POST':
-        problema = request.form['problema']
+    try:
         cursor = db.connection.cursor()
-        sql = """INSERT INTO `getinfo`.`pregunta` (`descripcion`,`idusuario`) VALUES
-        ('{}','{}')""".format(problema, user_id)
+        sql = """SELECT descripcion FROM pregunta """
         cursor.execute(sql)
-        cursor.close()
-        db.connection.commit()
-        print(problema)
-        return render_template('auth/vspregunta.html')
-    else:
-        return render_template('auth/vspregunta.html')
+        preguntas = [row[0] for row in cursor.fetchall()]  # Obtener todas las descripciones de las preguntas
+    except Exception as ex:
+        raise Exception(ex)
+
+    return render_template('auth/vspregunta.html', preguntas=preguntas)

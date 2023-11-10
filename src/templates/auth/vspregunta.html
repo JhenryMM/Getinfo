@@ -1,5 +1,13 @@
 {% extends './baseinicio.html' %}
 {% block title %}Perfil{% endblock %}
 {% block body %}
-
+<div class="container mt-5">
+    <!-- Mostrar las preguntas -->
+    <h2 class="text-center mb-4">Preguntas:</h2>
+    <ul class="list-group">
+        {% for pregunta in preguntas %}
+            <li class="list-group-item">{{ pregunta }}</li>
+        {% endfor %}
+    </ul>
+</div>
 {% endblock %}

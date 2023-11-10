@@ -3,6 +3,9 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 class ModelUser():
 
+    # lo que hace este metodo es ver si existe en la tabla soporte el usuario
+    # que ingreso si esta devuelve un numero mayor a cero, es decir, true
+    # y si false 
     @classmethod
     def es_soporte(self, username, db):
         try:
