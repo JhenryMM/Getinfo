@@ -67,7 +67,9 @@ def login():
         user = User(0, request.form['username'], request.form['password'])
         username = request.form['username']
         logged_user = ModelUser.login_user(db, user)
-
+        
+        # si es soporte, entonces ira al endpoint correspondiente sino ira al
+        # de usuario 
         if ModelUser.es_soporte(username, db):
             logged_user = ModelUser.login_soporte(db, user)
             if logged_user:
