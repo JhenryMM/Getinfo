@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, current_app
 from flask_login import login_required, current_user
 from models.ModelUser import ModelUser
+from utils.utils import roles_required
 
 pregunta = Blueprint('pregunta', __name__)
 
@@ -10,7 +11,7 @@ pregunta = Blueprint('pregunta', __name__)
 def vcpregunta():
     db = current_app.db 
     user_id = current_user.id
-
+    
     if request.method == 'POST':
         problema = request.form['problema']
         cursor = db.connection.cursor()
@@ -26,11 +27,12 @@ def vcpregunta():
 
 @pregunta.route('/vspregunta', methods = ['POST','GET'])
 @login_required
+@roles_required(['soporte'])
 def vspregunta():
     db = current_app.db 
     user_id = current_user.id
     preguntas = []  # Lista para almacenar las preguntas
-
+    
     try:
         cursor = db.connection.cursor()
         sql = """SELECT descripcion FROM pregunta """

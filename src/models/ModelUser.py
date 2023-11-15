@@ -1,6 +1,7 @@
 from .entities.User import User
 from werkzeug.security import check_password_hash, generate_password_hash
 
+
 class ModelUser():
 
     # lo que hace este metodo es ver si existe en la tabla soporte el usuario
@@ -28,7 +29,7 @@ class ModelUser():
             cursor.execute(sql)
             row = cursor.fetchone()
             if row != None:
-                user = User(row[0], row[1], User.check_password(row[2],user.password), row[3])
+                user = User(row[0], row[1], User.check_password(row[2],user.password), row[3],"usuario")
                 return user
             else:
                 return None
@@ -44,7 +45,7 @@ class ModelUser():
             cursor.execute(sql)
             row = cursor.fetchone()
             if row != None:
-                user = User(row[0], row[1], User.check_password(row[2],user.password), row[3])
+                user = User(row[0], row[1], User.check_password(row[2],user.password), row[3],"soporte")
                 return user
             else:
                 return None
@@ -52,17 +53,15 @@ class ModelUser():
             raise Exception(ex)
 
     @classmethod
-    def verificar_usuario(cls,user,db ):
+    def es_usuario(cls,username,db ):
         try:
-            cursor =db.connection.cursor()
-            sql="""SELECT username FROM usuario
-             WHERE username = '{}' """.format(user.username)
-            cursor.execute(sql)
-            row = cursor.fetchone()
-            if row == None:
-                return False
-            else:
-                return True
+            cursor = db.connection.cursor()
+            sql = "SELECT COUNT(*) FROM usuario WHERE username = %s"
+            cursor.execute(sql, (username,))
+            count = cursor.fetchone()[0]
+            cursor.close()
+            
+            return count > 0
         except Exception as ex:
             raise Exception(ex)
 
@@ -79,17 +78,31 @@ class ModelUser():
             raise Exception(ex)
     
     @classmethod
-    def get_by_id(cls, db, id):
+    def get_by_id(cls, db, id, role):
         try:
-            cursor = db.connection.cursor()
-            sql = """SELECT id, username, fullname FROM usuario WHERE id= {} """.format(id)
-            cursor.execute(sql)
-            row = cursor.fetchone()
-            if row != None:
-                return User(row[0], row[1], None, row[2])
-            else : 
-                return None
-            cursor.close()
+            if role == "usuario":
+                cursor = db.connection.cursor()
+                sql = """SELECT id, username, fullname FROM usuario WHERE id= {} """.format(id)
+                cursor.execute(sql)
+                row = cursor.fetchone()
+                if row != None:
+                    return User(row[0], row[1], None, row[2], role)
+                else : 
+                    return None
+                cursor.close()
+            else:
+                if role == "soporte":
+                    cursor = db.connection.cursor()
+                    sql = """SELECT idsoportet, username, fullname FROM soportet WHERE idsoportet= {} """.format(id)
+                    cursor.execute(sql)
+                    row = cursor.fetchone()
+                    if row != None:
+                        return User(row[0], row[1], None, row[2], role)
+                    else : 
+                        return None
+                    cursor.close()
+                else:
+                    print(id, role)
             
         except Exception as ex:
             raise Exception(ex)

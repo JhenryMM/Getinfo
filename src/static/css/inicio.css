@@ -170,6 +170,45 @@ textarea {
 .contenedor-pregunta.activa img {
 	transform: rotate(45deg);
 }
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /
+}
+
+
+.textarea-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.textarea-container textarea {
+    font-size: 15px;
+    border-radius: 10px;
+    width: 100%; 
+    margin: 10px 0; 
+}
+
+.form .btn {
+    font-size: 20px;
+    border-radius: 5px;
+    border-color: #141414;
+}
+
+textarea {
+    padding: 10px; 
+}
+
+
+@media (max-width: 768px) {
+    
+    .textarea-container textarea {
+        width: 100%; 
+    }
+}
+
 @media (max-width:952px){
     .enlance{
         padding-left: 20px;

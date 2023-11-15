@@ -1,10 +1,11 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, current_app
+from flask import Flask, render_template, request, redirect, url_for, flash, current_app, session
 from config import config
 from flask_mysqldb import MySQL
 from flask_wtf.csrf import CSRFProtect
 from flask_login import LoginManager, login_user, login_required, logout_user
 from router.pregunta import pregunta
-
+from utils.utils import roles_required
+from flask_login import current_user
 
 #Carpetamodels:
 from models.ModelUser import ModelUser
@@ -23,8 +24,9 @@ with app.app_context():
 
 @login_manager_app.user_loader
 def load_user(id):
-    return ModelUser.get_by_id(db, id)
-
+    user_role = session.get('role')
+    print ("en el load user", user_role)
+    return ModelUser.get_by_id(db, id, user_role)
 
 @app.route('/')
 def index():
@@ -52,12 +54,16 @@ def signup_create():
             flash('Nombre de usuario demasiado largo', 'danger')
             return redirect(url_for('signup_create'))
 
-        if ModelUser.verificar_usuario(user, db):
+        if ModelUser.es_usuario(user.username, db):
             flash('Usuario existe, vuelva a registrarse o inicie sesión', 'danger')
             return redirect(url_for('signup_create'))
         else:
-            ModelUser.crear_usuario(user, db)
-            return redirect(url_for('login'))
+            if ModelUser.es_soporte(user.username, db):
+                flash ('Usuario existe, vuelva a registrarse o inicie sesión', 'danger')
+                return redirect(url_for('signup_create'))
+            else:    
+                ModelUser.crear_usuario(user, db)
+                return redirect(url_for('login'))
     return render_template('auth/registro.html')
 
  
@@ -66,25 +72,49 @@ def login():
     if request.method == 'POST':
         user = User(0, request.form['username'], request.form['password'])
         username = request.form['username']
-        logged_user = ModelUser.login_user(db, user)
         
         # si es soporte, entonces ira al endpoint correspondiente sino ira al
         # de usuario 
         if ModelUser.es_soporte(username, db):
             logged_user = ModelUser.login_soporte(db, user)
+
             if logged_user:
-                login_user(logged_user)
-                return redirect(url_for('pregunta.vspregunta'))
+                if logged_user.password:
+                    login_user(logged_user)
+                    session['role']= "soporte"
+                    print ("el rol aca es:" + logged_user.role + logged_user.username) 
+                    return redirect(url_for('pregunta.vspregunta'))  
+                else:
+                    flash("credenciales incorrectas")
+                    return render_template('auth/login.html')
+            else:
+                flash("credenciales incorrectas")
+                return render_template('auth/login.html')
+
         else:
             logged_user = ModelUser.login_user(db, user)
-            if logged_user:
-                login_user(logged_user)
-                return redirect(url_for('pregunta.vcpregunta'))
 
+            if logged_user:
+                if logged_user.password:
+                    login_user(logged_user)
+                    session['role']= "usuario"
+                    return redirect(url_for('pregunta.vcpregunta'))
+                else:
+                    flash("credenciales incorrectas")
+                    return render_template('auth/login.html')
+            else:
+                flash("credenciales incorrectas")
+                return render_template('auth/login.html')
 
         return render_template('auth/login.html')
     else:
         return render_template('auth/login.html')
+
+
+@app.route('/acceso_denegado')
+def acceso_denegado():
+    return "Acceso denegado. No tienes permiso para ver esta página."
+
 
 @app.route('/logout')
 def logout():

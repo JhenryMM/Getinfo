@@ -14,6 +14,19 @@
         <input type="password" name="password" placeholder="Contraseña" class="input-control">
     </div>
     <button type="submit" class="btn">Crear cuenta</button>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <br />
+        {% for message in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{ message }}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>        
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
 </form>
 <p>Ya tienes una cuenta? <a href="{{ url_for('login') }}" class="gradient-text">Iniciar sesión</a></p>
 {% endblock %}
