@@ -63,6 +63,7 @@ def signup_create():
                 return redirect(url_for('signup_create'))
             else:    
                 ModelUser.crear_usuario(user, db)
+                flash ('Cuenta creada!')
                 return redirect(url_for('login'))
     return render_template('auth/registro.html')
 
@@ -82,7 +83,7 @@ def login():
                 if logged_user.password:
                     login_user(logged_user)
                     session['role']= "soporte"
-                    print ("el rol aca es:" + logged_user.role + logged_user.username) 
+                    print ("el rol aca es:" + logged_user.role + logged_user.username, "es admi? ", logged_user.esadmi) 
                     return redirect(url_for('pregunta.vspregunta'))  
                 else:
                     flash("credenciales incorrectas")
@@ -90,20 +91,18 @@ def login():
             else:
                 flash("credenciales incorrectas")
                 return render_template('auth/login.html')
-
         else:
             logged_user = ModelUser.login_user(db, user)
-
             if logged_user:
                 if logged_user.password:
                     login_user(logged_user)
                     session['role']= "usuario"
                     return redirect(url_for('pregunta.vcpregunta'))
                 else:
-                    flash("credenciales incorrectas")
+                    flash("credenciales incorrectas ")
                     return render_template('auth/login.html')
             else:
-                flash("credenciales incorrectas")
+                flash("credenciales incorrectas ")
                 return render_template('auth/login.html')
 
         return render_template('auth/login.html')

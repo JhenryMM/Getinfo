@@ -1,13 +1,32 @@
 {% extends './baseinicio.html' %}
 {% block title %}Perfil{% endblock %}
 {% block body %}
+
 <div class="container mt-5">
-    <!-- Mostrar las preguntas -->
-    <h2 class="text-center mb-4">Preguntas:</h2>
-    <ul class="list-group">
-        {% for pregunta in preguntas %}
-            <li class="list-group-item">{{ pregunta }}</li>
-        {% endfor %}
-    </ul>
-</div>
-{% endblock %}
+
+    <div class="container mt-5">
+        <!-- Mostrar las preguntas -->
+        <h1 class="text-center mb-4">Listado de Preguntas</h1>
+
+        <div class="row">
+            {% for pregunta in preguntas %}
+            <div class="col-md-4 mb-3">
+                <div class="card position-relative">
+                    <div class="card-header card-header-right">
+                        {{ pregunta[0] }} <!-- Fecha -->
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Pregunta o Problema</h5> 
+                        <p class="card-text">{{ pregunta[1] }}</p><!-- Descripción -->
+                        <button class="btn btn-primary btn-margin">Responder</button>
+                        <button class="btn btn-success btn-margin">Agregar Dificultad</button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    </div>
+
+{% endblock %}  

@@ -6,7 +6,7 @@ class ModelUser():
 
     # lo que hace este metodo es ver si existe en la tabla soporte el usuario
     # que ingreso si esta devuelve un numero mayor a cero, es decir, true
-    # y si false 
+    # y sino false 
     @classmethod
     def es_soporte(self, username, db):
         try:
@@ -40,12 +40,12 @@ class ModelUser():
     def login_soporte(self,db,user):
         try:
             cursor = db.connection.cursor()
-            sql= """SELECT idsoportet, username, password, fullname FROM soportet
+            sql= """SELECT idsoportet, username, password, fullname, esadmi FROM soportet
              WHERE username = '{}'""".format(user.username)
             cursor.execute(sql)
             row = cursor.fetchone()
             if row != None:
-                user = User(row[0], row[1], User.check_password(row[2],user.password), row[3],"soporte")
+                user = User(row[0], row[1], User.check_password(row[2],user.password), row[3],"soporte", row[4])
                 return user
             else:
                 return None
@@ -93,11 +93,11 @@ class ModelUser():
             else:
                 if role == "soporte":
                     cursor = db.connection.cursor()
-                    sql = """SELECT idsoportet, username, fullname FROM soportet WHERE idsoportet= {} """.format(id)
+                    sql = """SELECT idsoportet, username, fullname, esadmi FROM soportet WHERE idsoportet= {} """.format(id)
                     cursor.execute(sql)
                     row = cursor.fetchone()
                     if row != None:
-                        return User(row[0], row[1], None, row[2], role)
+                        return User(row[0], row[1], None, row[2], role, row[3])
                     else : 
                         return None
                     cursor.close()
