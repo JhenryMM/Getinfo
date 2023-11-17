@@ -4,6 +4,7 @@ from flask_mysqldb import MySQL
 from flask_wtf.csrf import CSRFProtect
 from flask_login import LoginManager, login_user, login_required, logout_user
 from router.pregunta import pregunta
+from router.soporte import soporte
 from utils.utils import roles_required
 from flask_login import current_user
 
@@ -47,9 +48,6 @@ def signup_create():
             flash('Contraseña no proporcionada', 'danger')
             return redirect(url_for('signup_create'))
 
-        password_hash = User.generar_hash(password)
-        user = User(0, username, password_hash, fullname)
-
         if len(user.username) > 255:
             flash('Nombre de usuario demasiado largo', 'danger')
             return redirect(url_for('signup_create'))
@@ -62,9 +60,12 @@ def signup_create():
                 flash ('Usuario existe, vuelva a registrarse o inicie sesión', 'danger')
                 return redirect(url_for('signup_create'))
             else:    
+                password_hash = User.generar_hash(password)
+                user = User(0, username, password_hash, fullname)
                 ModelUser.crear_usuario(user, db)
                 flash ('Cuenta creada!')
                 return redirect(url_for('login'))
+                
     return render_template('auth/registro.html')
 
  
@@ -132,5 +133,6 @@ if __name__=='__main__':
     app.register_error_handler(401,status_401)
     app.register_error_handler(404,status_404)
     app.register_blueprint(pregunta)
+    app.register_blueprint(soporte)
     app.run()
 

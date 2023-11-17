@@ -76,6 +76,18 @@ class ModelUser():
             db.connection.commit()
         except Exception as ex:
             raise Exception(ex)
+
+    @classmethod
+    def crear_soporte(cls, user, db):
+        try:
+            cursor = db.connection.cursor()
+            sql = """INSERT INTO `getinfo`.`soportet` (`username`, `password`, `fullname`, `esadmi`)
+                    VALUES ('{}', '{}', '{}', '{}')""".format(user.username, user.password, user.fullname, user.esadmi)
+            cursor.execute(sql)
+            cursor.close()
+            db.connection.commit()
+        except Exception as ex:
+            raise Exception(ex)
     
     @classmethod
     def get_by_id(cls, db, id, role):

@@ -1,0 +1,44 @@
+{% extends './baseinicio.html' %}
+{% block title %}Perfil{% endblock %}
+{% block body %}
+    
+    <div class="container">
+        <h2 class="text-center">Registro de Usuario soporte</h2>
+        <form action="/crear_soporte" method="POST">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <div class="mb-3">
+                <label for="username" class="form-label">Nombre de usuario:</label>
+                <input type="text" class="form-control" id="username" name="username" required>
+            </div>
+            <div class="mb-3">
+                <label for="fullname" class="form-label">Nombre completo:</label>
+                <input type="text" class="form-control" id="fullname" name="fullname" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">contraseña:</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <div class="mb-3">
+                <label for="esadmin" class="form-label">Este usuario tendra los privilegios de ser administrador?</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="esadmin" id="esadmin_si" value="si">
+                    <label class="form-check-label" for="esadmin_si">
+                        Sí
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="esadmin" id="esadmin_no" value="no" checked>
+                    <label class="form-check-label" for="esadmin_no">
+                        No
+                    </label>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Crear Usuario soporte</button>
+        </form>
+
+        <div class="mt-3 text-center">
+            <a href="#" class="btn btn-success">Mostrar Usuarios de Soporte</a>
+        </div>
+
+    </div>
+{% endblock %}

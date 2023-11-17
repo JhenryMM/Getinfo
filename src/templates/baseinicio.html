@@ -16,6 +16,13 @@
         <a class="navbar-brand" href="#">
             <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="" height="40">
         </a>
+
+        <div class="d-flex flex-grow-1 justify-content-center align-items-center">
+            <span class="navbar-text mx-auto">
+                <span class="navbar-brand mb-0 h1"  style="font-size: 2.5rem;" >Getinfo</span>
+            </span>
+        </div>
+
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -27,7 +34,7 @@
                         <a class="nav-link" href="#">Ver perfil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="vcpregunta.html">Preguntas</a>
+                        <a class="nav-link" href="{{ url_for ('pregunta.vcpregunta') }}">Preguntas</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="vcrespuestas.html">Respuestas</a>
@@ -42,14 +49,14 @@
                         <a class="nav-link" href="#">Ver perfil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="vcpregunta.html">Preguntas</a>
+                        <a class="nav-link" href="{{ url_for ('pregunta.vspregunta') }}">Preguntas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="vcrespuestas.html">Respuestas</a>
+                        <a class="nav-link" href="vsrespuesta.html">Respuestas</a>
                     </li>
                     {% if current_user.esadmi == 1 %}
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Crear soporte</a>
+                            <a class="nav-link" href="{{ url_for ('soporte.crear_soporte') }}">Crear soporte</a>
                         </li>
                     {% endif %}
                     <li class="nav-item">
