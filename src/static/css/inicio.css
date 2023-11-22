@@ -26,6 +26,12 @@
     background-color: #3e3ee9; /* Color de fondo al pasar el mouse o activo */
 }
 
+/* Estilos personalizados para el sombreado inferior del navbar */
+.navbar {
+    box-shadow: 0 4px 6px -6px #000;
+}
+
+
 main {
     max-width: 1000px;
 	width: 90%;
@@ -181,6 +187,7 @@ textarea {
 }
 
 footer {
+    box-shadow: 0 4px 6px -6px #000;
     background-color: #2f4ccd;
     color: #141414;
     text-align: center;
