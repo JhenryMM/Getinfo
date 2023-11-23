@@ -8,29 +8,40 @@ $(document).ready(function () {
     });
 
     $('.btn-responder').click(function () {
+
+        var preguntaId = $(this).data('id');
+        
+        // Almacenar el ID de la pregunta en un campo oculto dentro del formulario de respuesta
+        $('#responderForm').find('input[name="pregunta_id"]').remove(); // Eliminar si ya existe
+        $('#responderForm').append('<input type="hidden" name="pregunta_id" value="' + preguntaId + '">');
+
+        // Mostrar el modal de respuesta
         $('#responderModal').modal('show');
     });
     // respuestas 
 
     $('#responderForm').submit(function (event) {
         event.preventDefault();
-        var respuesta = $('#respuestaTextarea').val();
-        var csrfToken = $('#csrf_token').val();
+        const preguntaId = $('input[name="pregunta_id"]').val(); 
+        const respuesta = $('#respuestaTextarea').val();
+        const csrfToken = $('input[name="csrf_token"]').val();
 
         // Envía los datos al endpoint 'respuesta' mediante una petición AJAX
         $.ajax({
             type: 'POST',
-            url: '/respuesta', // Asegúrate de que la URL sea correcta
+            url: '/respuesta',
+            contentType: 'application/json',
             headers:{
                 'X-CSRFToken': csrfToken
             },
-            data: { 
-                respuesta: respuesta
-            },
+            data: JSON.stringify({ 
+                respuesta: respuesta,
+                pregunta_id: preguntaId
+            }),
             success: function (response) {
-                // Maneja la respuesta del servidor si es necesario
-                console.log('Respuesta enviada con éxito');
+                
                 $('#responderModal').modal('hide'); // Oculta el modal después de enviar la respuesta
+                location.reload();
             },
             error: function (error) {
                 console.error('Error al enviar la respuesta', error);
@@ -203,7 +214,19 @@ document.getElementById('confirmarEliminarBtn').addEventListener('click', functi
         });
 });
 
+function confirmarEnvio() {
+    // Mostrar un cuadro de diálogo de confirmación de Bootstrap
+    $('#confirmarEnvioModal').modal('show');
 
+    // Cancelar el envío del formulario por defecto
+    return false;
+}
+
+// Enviar la respuesta después de confirmar en el cuadro de diálogo
+$('#enviarRespuestaBtn').on('click', function() {
+    
+    $('#confirmarEnvioModal').modal('hide');
+});
 
 
 
