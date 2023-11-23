@@ -44,3 +44,17 @@ def vspregunta():
         raise Exception(ex)
 
     return render_template('auth/vspregunta.html', preguntas=preguntas)
+
+
+@pregunta.route('/respuesta', methods = ['POST'])
+@login_required
+@roles_required(['soporte'])
+def respuesta():
+    if request.method == 'POST':
+        data = request.json  # Obtener los datos enviados desde el formulario modal
+            
+        if data:
+            respuesta = data.get('respuesta') 
+            return jsonify({'message': 'Respuesta recibida con éxito'})
+
+    return jsonify({'error': 'Error al procesar la solicitud'})

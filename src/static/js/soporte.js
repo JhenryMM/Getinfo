@@ -6,6 +6,38 @@ $(document).ready(function () {
         event.preventDefault();
         cargarUsuarios();
     });
+
+    $('.btn-responder').click(function () {
+        $('#responderModal').modal('show');
+    });
+    // respuestas 
+
+    $('#responderForm').submit(function (event) {
+        event.preventDefault();
+        var respuesta = $('#respuestaTextarea').val();
+        var csrfToken = $('#csrf_token').val();
+
+        // Envía los datos al endpoint 'respuesta' mediante una petición AJAX
+        $.ajax({
+            type: 'POST',
+            url: '/respuesta', // Asegúrate de que la URL sea correcta
+            headers:{
+                'X-CSRFToken': csrfToken
+            },
+            data: { 
+                respuesta: respuesta
+            },
+            success: function (response) {
+                // Maneja la respuesta del servidor si es necesario
+                console.log('Respuesta enviada con éxito');
+                $('#responderModal').modal('hide'); // Oculta el modal después de enviar la respuesta
+            },
+            error: function (error) {
+                console.error('Error al enviar la respuesta', error);
+            }
+        });
+    });
+
 });
 
 
